@@ -1,0 +1,128 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'commons-httpclient:commons-httpclient:3.1'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.3.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.asciidoctor.convert' version '1.5.3'
+    id 'org.ysb33r.vfs' version '1.0'
+    id 'name.mazgalov.vaadin.sass.compiler' version '0.1.1'
+}
+
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+repositories {
+    jcenter()
+}
+
+ext {
+    downloadDir = new File(buildDir, 'download')
+
+    revealjsVersion = 'master'
+    revealjsTemplateVersion = 'master'
+    revealjsDir = new File(downloadDir, 'reveal.js')
+    revealjsTemplateDir = new File(downloadDir, 'revealjs-backends/revealjs')
+
+    examplesDir = file("${buildDir}/examples")
+
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile 'org.ysb33r.groovy:groovy-vfs:1.0'
+    compile 'org.codehaus.groovy:groovy:2.4.10'
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude module: 'groovy-all'
+    }
+}
+
+task download {
+    doLast {
+        mkdir downloadDir
+        vfs {
+            if (!revealjsDir.exists()) {
+                cp "zip:https://github.com/hakimel/reveal.js/archive/${revealjsVersion}.zip!reveal.js-${revealjsVersion}",
+                        revealjsDir, recursive: true, overwrite: true
+            }
+            if (!revealjsTemplateDir.exists()) {
+                cp "zip:https://github.com/ysb33r/asciidoctor-reveal.js/archive/${revealjsTemplateVersion}.zip!asciidoctor-reveal.js-${revealjsTemplateVersion}/templates/slim",
+                        revealjsTemplateDir, recursive: true, overwrite: true
+            }
+        }
+    }
+}
+
+download {
+    outputs.dir revealjsDir
+    outputs.dir revealjsTemplateDir
+}
+
+task themeResources(type: Copy) {
+    dependsOn download
+    from 'src/docs/sass' into 'build/download/reveal.js/css/theme'
+}
+
+compileSass {
+    dependsOn download, themeResources
+
+    scssFile = 'src/docs/sass/schauderhaft.scss'
+    cssFile = 'build/download/reveal.js/css/theme/schauderhaft.css'
+}
+
+asciidoctor {
+    dependsOn compileSass
+
+    inputs.dir 'src/main'
+    inputs.dir 'src/test'
+
+    requires 'asciidoctor-diagram'
+
+    sources {
+        include 'talk.ad'
+    }
+
+    resources {
+        from('src/docs/asciidoc') {
+            include 'images/**'
+            include 'stylesheets/**'
+            include 'reveal.js/**'
+        }
+        from(downloadDir) {
+            include 'reveal.js/**'
+        }
+    }
+
+    backends 'revealjs'
+
+    options template_dirs: [revealjsTemplateDir.parentFile.absolutePath]
+
+    attributes 'source-highlighter': 'coderay'
+    attributes 'asciidoctorj': asciidoctorj.version
+    attributes imagesoutdir: "${outputDir}/revealjs/images"
+
+    attributes 'source-highlighter': 'highlightjs'
+    attributes 'highlightjs-theme': 'reveal.js/lib/css/zenburn.css'
+    attributes 'imagesdir': './images'
+
+    attributes 'revealjs_transition': 'linear'
+    attributes 'revealjs_history': 'true'
+    attributes 'revealjs_slideNumber': 'false'
+    attributes 'revealjs_controls' : 'false'
+
+    dependsOn download
+
+}
+
+build.dependsOn asciidoctor
