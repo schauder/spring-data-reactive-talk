@@ -70,22 +70,78 @@ Reactive Persistence API for
 
 Uses Reactor by Default, but supports RxJava as well.
 
-== Down the Rabbit Hole
+== Threads in Servlet Apps
 
 === !
 
+image
 
+=== 1 Thread per CPU Core
 
-== Und was ist mit JDBC?
+Overload -> Network based Time Out
 
-=== Niemand möchte JPA durch Reactive Streams schieben
+=== !
 
-=== Spring Data hat keine JDBC store
+image
 
-Noch
+=== 1 T/Core + 1/Connection (???)
 
-=== Asynchrones JDBC in Arbeit
+Works only with full/even load.
 
-Nicht Flow/Reactive Stream basiert
+Assymetric Load -> Wasted Resources
+
+Overload -> Network based Time Out
+
+== Reactive Streams
+
+=== !
+
+image
+
+=== Backpressure
+
+Publisher may only send what requested.
+
+=== Processor
+
+Combines Subscriber and Publisher
+
+=== Functional Processors
+
+* map: transform events
+
+* flatmap: many elements from one
+
+* filter
+
+=== Controlling Processors
+
+* buffer _n_ elements
+
+* stop after some time
+
+* work on a special Thread-Pool
+
+== Reactor
+
+Publisher -> Mono, Flux
+
+Processors -> methods on Mono & Flux
+
+== What about JDBC?
+
+=== Nobody wants to push JPA through Reactive Streams
+
+=== No Spring Data JDBC store
+
+Yet
+
+=== Oracle Works on Async SQL-API
+
+Not Flow/Reactive Stream based
+
+=== There are APIs
+
+Run on Thread Pools
 
 include::self.ad[]
