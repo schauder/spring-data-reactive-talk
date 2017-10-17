@@ -9,33 +9,83 @@
 
 include::footer.ad[]
 
-== !
+== Why Reactive?
+
+=== !
+
+[quote, "Rossen Stoyanchev"]
+____
+In a nutshell, reactive programming is about non-blocking, event-driven applications that scale with a small number of threads with back pressure as a key ingredient that aims to ensure producers to not overwhelm consumers.
+____
+
+=== !
+
+[quote, "Reactive Streams"]
+____
+The main goal of Reactive Streams is to govern the exchange of stream data across an asynchronous boundary — think passing elements on to another thread or thread-pool — while ensuring that the receiving side is not forced to buffer arbitrary amounts of data.
+____
+
+
+== Relevant Projects
+
+=== Reactive Streams
+
+Common interfaces and a TCK.
+
+Allows for interoperation of various implementations
+
+=== Flow API
+
+Semantically equivalent to Reactive Streams.
+
+Part of the JDK.
+
+Rules of Reactive Streams apply.
+
+=== Implementations
+
+RxJava
+
+Akka
+
+Project Reactor
+
++ other more specialized
+
+=== !
+
+image::choose-reactive-lib.png[background, size=contain]
+
+=== Spring Framework 5.0
+
+Reactive server side web framework based on Project Reactor.
+
+=== Spring Data Kay
+
+Reactive Persistence API for
+
+* MongoDB
+* Cassandra
+* Redis
+
+Uses Reactor by Default, but supports RxJava as well.
+
+== Down the Rabbit Hole
+
+=== !
 
 
 
-== Resourcen
+== Und was ist mit JDBC?
 
-++++
-<div class="reference"><a href="http://amzn.to/2xniDmq">7 Habits Of Highly Effective People <br> Stephen R Covey - http://amzn.to/2xniDmq</a>
-</div><div class="reference"><a href="http://amzn.to/2wzojgf">Das Corssen-Prinzip Jens Corssen - http://amzn.to/2wzojgf</a>
-</div><div class="reference"><a href="http://amzn.to/2x83XIH">An Astronaut's Guide to Life on Earth <br> Chris Hadfield - http://amzn.to/2x83XIH</a>
-</div><div class="reference"><a href="http://amzn.to/2wjgThz">Auf dem Kreuzzug ins Glück <br> Die Toten Hosen - http://amzn.to/2wjgThz</a>
-</div><div class="reference"><a href="https://www.youtube.com/watch?v=5J6jAC6XxAI">Tim Ferris http://bit.ly/timFerris</a>
-</div><div class="reference"><a href="http://amzn.to/2v0IUdI">Denken hilft zwar, nützt aber nichts <br> Dan Ariely - http://amzn.to/2v0IUdI</a>
-</div><div class="reference"><a href="http://amzn.to/2xmX31N">Thinking Fast and Slow <br> Daniel Kahneman - http://amzn.to/2xmX31N</a>
-</div>
-++++
+=== Niemand möchte JPA durch Reactive Streams schieben
 
-== Resource
+=== Spring Data hat keine JDBC store
 
-++++
-<div class="reference"><a href="http://amzn.to/2x7NGn3">Just Listen Mark Goulston - http://amzn.to/2x7NGn3</a>
-</div><div class="reference"><a href="http://amzn.to/2g0assW">Difficult Conversations Douglas Stone - http://amzn.to/2g0assW</a>
-</div><div class="reference"><a href="http://inews.co.uk/opinion/comment/i-deal-nasty-comments-online/">Frau begegnet Hasskomentaren mit freundlichem Nachfragen <br> bit.ly/hatecomments</a>
-</div><div class="reference"><a href="http://www.huffingtonpost.com/entry/black-man-daryl-davis-befriends-kkk-documentary-accidental-courtesy_us_585c250de4b0de3a08f495fc">Schwarzer freundet sich mit Klansmen an <br> http://bit.ly/befriendKKK</a>
-</div><div class="reference"><a href="https://blog.codinghorror.com/how-to-talk-to-human-beings/">How to talk to human beings <br> Jeff Atwood - http://bit.ly/talk2humans/</a>
-</div><div class="reference"><a href="http://theoatmeal.com/comics/believe">The Oatmeal http://theoatmeal.com/comics/believe</a>
-</div>
-++++
+Noch
+
+=== Asynchrones JDBC in Arbeit
+
+Nicht Flow/Reactive Stream basiert
 
 include::self.ad[]
