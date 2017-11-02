@@ -34,14 +34,6 @@ Common interfaces and a TCK.
 
 Allows for interoperation of various implementations
 
-=== Flow API
-
-Semantically equivalent to Reactive Streams.
-
-Part of the JDK.
-
-Rules of Reactive Streams apply.
-
 === Implementations
 
 RxJava
@@ -52,6 +44,18 @@ Project Reactor
 
 + other more specialized
 
+=== Flow API
+
+Semantically equivalent to Reactive Streams.
+
+Part of the JDK.
+
+Rules of Reactive Streams apply.
+
+=== Which to pick?
+
+Ask the developer of RxJava.
+
 === !
 
 image::choose-reactive-lib.png[background, size=contain]
@@ -60,7 +64,7 @@ image::choose-reactive-lib.png[background, size=contain]
 
 Reactive server side web framework based on Project Reactor.
 
-=== Spring Data Kay
+=== Spring Data - Kay Release
 
 Reactive Persistence API for
 
@@ -72,17 +76,15 @@ Uses Reactor by Default, but supports RxJava as well.
 
 == Threads in Servlet Apps
 
-=== !
-
-image
+image::servlet.jpg[background, size=contain]
 
 === 1 Thread per CPU Core
 
 Overload -> Network based Time Out
 
-=== !
+=== With I/O
 
-image
+image::io.jpg[background, size=contain]
 
 === 1 T/Core + 1/Connection (???)
 
@@ -94,9 +96,13 @@ Overload -> Network based Time Out
 
 == Reactive Streams
 
+=== The Contract
+
+image::subscriber-publisher.jpg[background, size=contain]
+
 === !
 
-image
+image::subscriber-publisher.jpg[background, size=contain]
 
 === Backpressure
 
@@ -105,6 +111,10 @@ Publisher may only send what requested.
 === Processor
 
 Combines Subscriber and Publisher
+
+=== !
+
+image::pipeline.jpg[background, size=contain]
 
 === Functional Processors
 
@@ -128,6 +138,10 @@ Publisher -> Mono, Flux
 
 Processors -> methods on Mono & Flux
 
+=== reactive Spring Data
+
+Lets play!
+
 == What about JDBC?
 
 === Nobody wants to push JPA through Reactive Streams
@@ -140,8 +154,22 @@ Yet
 
 Not Flow/Reactive Stream based
 
+https://events.rainfocus.com/catalog/oracle/oow17/catalogjavaone17?search=CON1491&showEnrolled=false[Java One Slides]
+
+Mailing List: jdbc-spec-discuss@openjdk.java.net
+
+http://hg.openjdk.java.net/jdk10/sandbox/jdk/file/a31057bda7c5/src/java.sql/share/classes/java/sql2[Jdk10 sandbox repository]
+
+=== Spring will support it
+
+https://jira.spring.io/browse/SPR-16069
+
 === There are APIs
 
 Run on Thread Pools
+
+https://github.com/vexsoftware/ajdbc[ajdbc]
+
+https://github.com/davidmoten/rxjava-jdbc[rxjava-jdbc]
 
 include::self.ad[]
