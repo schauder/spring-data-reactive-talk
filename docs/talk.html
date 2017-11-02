@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><title>Going Reactive With Spring Data</title><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" /><link href="reveal.js/css/reveal.css" rel="stylesheet" /><link rel="stylesheet" href="reveal.js/css/theme/schauderhaft.css" id="theme" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" /><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet" /><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Going Reactive With Spring Data</h1><div class="preamble"><script type="text/javascript">
+    window.addEventListener("load", function() {
+
+        revealDiv = document.querySelector("body div.reveal")
+        footer = document.getElementById("schauderhaft-footer");
+        revealDiv.appendChild(footer);
+
+    } );
+</script>
+<div id="schauderhaft-footer" class="footer">
+    <span class="element">@jensschauder</span>
+    <span class="element">#wjax</span>
+    <span class="element">#springdatareactive</span>
+</div></div></section>
+<section><section id="_why_reactive"><h2>Why Reactive?</h2></section><section><div class="quoteblock"><blockquote><div class="paragraph"><p>In a nutshell, reactive programming is about non-blocking, event-driven applications that scale with a small number of threads with back pressure as a key ingredient that aims to ensure producers to not overwhelm consumers.</p></div></blockquote><div class="attribution">&#8212; Rossen Stoyanchev</div></div></section><section><div class="quoteblock"><blockquote><div class="paragraph"><p>The main goal of Reactive Streams is to govern the exchange of stream data across an asynchronous boundary — think passing elements on to another thread or thread-pool — while ensuring that the receiving side is not forced to buffer arbitrary amounts of data.</p></div></blockquote><div class="attribution">&#8212; Reactive Streams</div></div></section></section>
+<section><section id="_relevant_projects"><h2>Relevant Projects</h2></section><section id="_reactive_streams"><h2>Reactive Streams</h2><div class="paragraph"><p>Common interfaces and a TCK.</p></div>
+<div class="paragraph"><p>Allows for interoperation of various implementations</p></div></section><section id="_implementations"><h2>Implementations</h2><div class="paragraph"><p>RxJava</p></div>
+<div class="paragraph"><p>Akka</p></div>
+<div class="paragraph"><p>Project Reactor</p></div>
+<div class="paragraph"><p>+ other more specialized</p></div></section><section id="_flow_api"><h2>Flow API</h2><div class="paragraph"><p>Semantically equivalent to Reactive Streams.</p></div>
+<div class="paragraph"><p>Part of the JDK.</p></div>
+<div class="paragraph"><p>Rules of Reactive Streams apply.</p></div></section><section id="_which_to_pick"><h2>Which to pick?</h2><div class="paragraph"><p>Ask the developer of RxJava.</p></div></section><section data-background-image="./images/choose-reactive-lib.png" data-background-size="contain"></section><section id="_spring_framework_5_0"><h2>Spring Framework 5.0</h2><div class="paragraph"><p>Reactive server side web framework based on Project Reactor.</p></div></section><section id="_spring_data_kay_release"><h2>Spring Data - Kay Release</h2><div class="paragraph"><p>Reactive Persistence API for</p></div>
+<div class="ulist"><ul><li><p>MongoDB</p></li><li><p>Cassandra</p></li><li><p>Redis</p></li></ul></div>
+<div class="paragraph"><p>Uses Reactor by Default, but supports RxJava as well.</p></div></section></section>
+<section><section id="_threads_in_servlet_apps" data-background-image="./images/servlet.jpg" data-background-size="contain"><h2>Threads in Servlet Apps</h2></section><section id="_1_thread_per_cpu_core"><h2>1 Thread per CPU Core</h2><div class="paragraph"><p>Overload &#8594; Network based Time Out</p></div></section><section id="_with_i_o" data-background-image="./images/io.jpg" data-background-size="contain"><h2>With I/O</h2></section><section id="_1_t_core_1_connection"><h2>1 T/Core + 1/Connection (???)</h2><div class="paragraph"><p>Works only with full/even load.</p></div>
+<div class="paragraph"><p>Assymetric Load &#8594; Wasted Resources</p></div>
+<div class="paragraph"><p>Overload &#8594; Network based Time Out</p></div></section></section>
+<section><section id="_reactive_streams_2"><h2>Reactive Streams</h2></section><section id="_the_contract" data-background-image="./images/subscriber-publisher.jpg" data-background-size="contain"><h2>The Contract</h2></section><section data-background-image="./images/subscriber-publisher.jpg" data-background-size="contain"></section><section id="_backpressure"><h2>Backpressure</h2><div class="paragraph"><p>Publisher may only send what requested.</p></div></section><section id="_processor"><h2>Processor</h2><div class="paragraph"><p>Combines Subscriber and Publisher</p></div></section><section data-background-image="./images/pipeline.jpg" data-background-size="contain"></section><section id="_functional_processors"><h2>Functional Processors</h2><div class="ulist"><ul><li><p>map: transform events</p></li><li><p>flatmap: many elements from one</p></li><li><p>filter</p></li></ul></div></section><section id="_controlling_processors"><h2>Controlling Processors</h2><div class="ulist"><ul><li><p>buffer <em>n</em> elements</p></li><li><p>stop after some time</p></li><li><p>work on a special Thread-Pool</p></li></ul></div></section></section>
+<section><section id="_reactor"><h2>Reactor</h2><div class="paragraph"><p>Publisher &#8594; Mono, Flux</p></div><div class="paragraph"><p>Processors &#8594; methods on Mono &amp; Flux</p></div></section><section id="_reactive_spring_data"><h2>reactive Spring Data</h2><div class="paragraph"><p>Lets play!</p></div></section></section>
+<section><section id="_what_about_jdbc"><h2>What about JDBC?</h2></section><section id="_nobody_wants_to_push_jpa_through_reactive_streams"><h2>Nobody wants to push JPA through Reactive Streams</h2></section><section id="_no_spring_data_jdbc_store"><h2>No Spring Data JDBC store</h2><div class="paragraph"><p>Yet</p></div></section><section id="_oracle_works_on_async_sql_api"><h2>Oracle Works on Async SQL-API</h2><div class="paragraph"><p>Not Flow/Reactive Stream based</p></div>
+<div class="paragraph"><p><a href="https://events.rainfocus.com/catalog/oracle/oow17/catalogjavaone17?search=CON1491&amp;showEnrolled=false">Java One Slides</a></p></div>
+<div class="paragraph"><p>Mailing List: <a href="mailto:jdbc-spec-discuss@openjdk.java.net">jdbc-spec-discuss@openjdk.java.net</a></p></div>
+<div class="paragraph"><p><a href="http://hg.openjdk.java.net/jdk10/sandbox/jdk/file/a31057bda7c5/src/java.sql/share/classes/java/sql2">Jdk10 sandbox repository</a></p></div></section><section id="_spring_will_support_it"><h2>Spring will support it</h2><div class="paragraph"><p><a href="https://jira.spring.io/browse/SPR-16069" class="bare">https://jira.spring.io/browse/SPR-16069</a></p></div></section><section id="_there_are_apis"><h2>There are APIs</h2><div class="paragraph"><p>Run on Thread Pools</p></div>
+<div class="paragraph"><p><a href="https://github.com/vexsoftware/ajdbc">ajdbc</a></p></div>
+<div class="paragraph"><p><a href="https://github.com/davidmoten/rxjava-jdbc">rxjava-jdbc</a></p></div></section></section>
+<section id="_jens_schauder"><h2>Jens Schauder</h2><div class="paragraph"><p>Vater, Spieler, Läufer, Boulderer</p></div>
+<span>
+<img src="images/pivotal-spring-logo.png" style="vertical-align: middle; border:none;" width="200"/>
++
+<img src="images/spring-data-logo.png"  style="vertical-align: middle; border:none;" width="60"/>
+</span>
+<div class="paragraph"><p>JUG Organizer
+    
+    <img src="images/jug_final_small.png" style="vertical-align: middle; border:none;" width="150"/>
+    </p></div>
+<div class="paragraph"><p><a href="http://bit.ly/jsch-sdreactive">Folien online: http://bit.ly/jsch-sdreactive</a></p></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: false,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'linear',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
