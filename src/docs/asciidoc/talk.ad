@@ -160,9 +160,13 @@ Mailing List: jdbc-spec-discuss@openjdk.java.net
 
 http://hg.openjdk.java.net/jdk10/sandbox/jdk/file/a31057bda7c5/src/java.sql/share/classes/java/sql2[Jdk10 sandbox repository]
 
-=== Spring will support it
+=== Spring will take a look
 
 https://jira.spring.io/browse/SPR-16069
+
+=== The idea of a reactive JDBC template
+
+https://gist.github.com/sdeleuze/a7348a2385a4d9a7bd727617a225ed06
 
 === There are APIs
 
