@@ -55,6 +55,12 @@ body {
 	text-shadow: none;
 }
 
+::-moz-selection {
+	color: #34302D;
+	background: #CCEDB6;
+	text-shadow: none;
+}
+
 .reveal .slides > section, .reveal .slides > section > section {
 	line-height: 1.3;
 	font-weight: inherit;
