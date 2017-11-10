@@ -172,8 +172,28 @@ https://gist.github.com/sdeleuze/a7348a2385a4d9a7bd727617a225ed06
 
 Run on Thread Pools
 
+https://github.com/mheath/adbcj[adbcj]
+
 https://github.com/vexsoftware/ajdbc[ajdbc]
 
 https://github.com/davidmoten/rxjava-jdbc[rxjava-jdbc]
 
 include::self.ad[]
+
+
+== The Demo Repositories
+
+=== From this talk
+
+https://github.com/schauder/spring-data-reactive-demo
+
+=== From the long version of this talk
+
+https://github.com/mp911de/reactive-vs-imperative
+
+=== Similar to the first but better documented
+
+better for self study
+
+https://github.com/christophstrobl/going-reactive-with-spring-data
+
