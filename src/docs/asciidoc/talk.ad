@@ -2,7 +2,7 @@
 :revealjs_customtheme: reveal.js/css/theme/schauderhaft.css
 :icons: font
 :twitter-tag: @jensschauder
-:conference-tag: #wjax
+:conference-tag: @jugka
 :talk-tag: #springdatareactive
 :slide-link: http://bit.ly/sdreactive
 :linkattrs:
@@ -146,9 +146,11 @@ Lets play!
 
 === Nobody wants to push JPA through Reactive Streams
 
-=== No Spring Data JDBC store
+=== Spring Data JDBC
 
-Yet
+image::alien.jpg[background, size=contain]
+
+https://github.com/spring-projects/spring-data-jdbc
 
 === Oracle Works on Async SQL-API
 
