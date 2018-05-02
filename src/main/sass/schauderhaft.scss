@@ -5,8 +5,8 @@
  * background pattern from https://subtlepatterns.com/skin-side-up/*
  */
 // Default mixins and settings -----------------
-@import "build/download/reveal.js/css/theme/template/mixins";
-@import "build/download/reveal.js/css/theme/template/settings.scss";
+@import "../../../target/generated-slides/reveal.js-3.6.0/css/theme/template/mixins.scss";
+@import "../../../target/generated-slides/reveal.js-3.6.0/css/theme/template/settings.scss";
 // ---------------------------------------------
 // Include theme-specific fonts
 //@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Roboto:100,300|Roboto+Mono&subset=latin-ext');
@@ -96,7 +96,7 @@ $selectionBackgroundColor: $color-secondary-1;
 $selectionColor: $color-primary-0;
 
 // Theme template ------------------------------
-@import "build/download/reveal.js/css/theme/template/theme";
+@import "../../../target/generated-slides/reveal.js-3.6.0/css/theme/template/theme";
 // ---------------------------------------------
 
 // some overrides after theme template import
@@ -127,8 +127,9 @@ $selectionColor: $color-primary-0;
   vertical-align: baseline;
 }
 
-.reveal pre {
-  width: 100%
+.reveal section>div:first-child pre code {
+  height: 100%;
+  max-height: 600px;
 }
 
 .reveal pre code {
@@ -140,7 +141,12 @@ $selectionColor: $color-primary-0;
 
 body {
   // pattern from https://subtlepatterns.com/skin-side-up/
-  background-image: url('skin_side_up.png');
+  background-image: url('images/skin_side_up.png');
+}
+
+// shadow for background images
+div.slide-background.present:not(.stack) {
+  filter: drop-shadow(5px 5px 5px $color-primary-1);
 }
 
 .reveal .attribution {
@@ -160,10 +166,6 @@ section[data-background-size] img {
 
 section[data-background-size] {
   top: initial !important;
-}
-
-.reveal blockquote {
-  width: 100%;
 }
 
 .line-through{
