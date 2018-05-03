@@ -76,7 +76,7 @@ Uses Reactor by Default, but supports RxJava as well.
 
 == Threads in Servlet Apps
 
-image::servlet.jpg[background, size=contain]
+image::servlet.png[background, size=contain]
 
 === 1 Thread per CPU Core
 
@@ -84,7 +84,7 @@ Overload -> Network based Time Out
 
 === With I/O
 
-image::io.jpg[background, size=contain]
+image::servlet-io.png[background, size=contain]
 
 === 1 T/Core + 1/Connection (???)
 
@@ -98,11 +98,11 @@ Overload -> Network based Time Out
 
 === The Contract
 
-image::subscriber-publisher.jpg[background, size=contain]
+image::flow-api.png[background, size=contain]
 
 === !
 
-image::subscriber-publisher.jpg[background, size=contain]
+image::flow-api.png[background, size=contain]
 
 === Backpressure
 
@@ -114,7 +114,7 @@ Combines Subscriber and Publisher
 
 === !
 
-image::pipeline.jpg[background, size=contain]
+image::pipeline.png[background, size=contain]
 
 === Functional Processors
 
